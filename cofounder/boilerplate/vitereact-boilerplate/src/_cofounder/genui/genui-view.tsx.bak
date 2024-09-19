@@ -1,0 +1,286 @@
+// @ts-ignore
+
+import React, { useEffect, useRef, useState } from "react";
+import { ErrorBoundary } from "@/_cofounder/genui/error-boundary";
+import GenUiPlaceholder from "@/_cofounder/genui/genui-placeholder";
+import { useScreenshot } from "use-screenshot-hook";
+import { createFileName } from "use-react-screenshot";
+import { RefreshCcw, PencilRuler } from "lucide-react";
+import meta from "@/_cofounder/meta.json";
+
+interface GenUiViewProps {
+	//component: { [key: string]: any };
+	[key: string]: any;
+}
+
+const GenUiView: React.FC<GenUiViewProps> = (query) => {
+	const COFOUNDER_LOCAL_API = `{COFOUNDER_LOCAL_API_BASE_URL}`;
+
+	const viewId = query.viewId;
+	let _query = { ...query };
+	delete _query.viewId;
+	// console.log({ "genui:section": query });
+
+	const [Component, setComponent] = useState<React.FC | null>(null);
+	const [components, setComponents] = useState<{ [key: string]: React.FC }>({});
+	const [choice, setChoice] = useState<string>("");
+	const [versions, setVersions] = useState<string[]>([]);
+	const [versionsWithImportProblems, setVersionsWithImportProblems] = useState<
+		string[]
+	>([]);
+	const [loaded, setLoaded] = useState(false);
+	const [ready, setReady] = useState(false);
+	const [newMenu, setNewMenu] = useState(false);
+	const [editUserText, setEditUserText] = useState("");
+
+	const [inferenceStream, setInferenceStream] = useState("");
+	const [processing, setProcessing] = useState(false);
+
+	const [isOpenTooltip, setIsOpenTooltip] = useState(false);
+	const [isOpenTooltipTab, setIsOpenTooltipTab] = useState(false);
+
+	// _____________________________________________________________________
+	const [cmdk, setCmdk] = useState(() => {
+		// Retrieve the initial state from local storage or default to false
+		const savedCmdk = localStorage.getItem("cmdkState");
+		return savedCmdk === "true"; // Convert string to boolean
+	});
+
+	useEffect(() => {
+		const down = (e: KeyboardEvent) => {
+			if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+				e.preventDefault();
+				setCmdk((prev) => {
+					const newState = !prev;
+					localStorage.setItem("cmdkState", newState.toString()); // Save the new state to local storage
+					return newState;
+				});
+			} else if (e.key === "Escape") {
+				setCmdk(false);
+				localStorage.setItem("cmdkState", "false"); // Reset state in local storage
+			}
+		};
+		document.addEventListener("keydown", down);
+		return () => document.removeEventListener("keydown", down);
+	}, []);
+
+	const ref = useRef(null);
+	const { image, takeScreenshot } = useScreenshot({ ref });
+	const testScreenshot = () => {
+		takeScreenshot();
+	};
+
+	const download = (image, { name = "img", extension = "png" } = {}) => {
+		const a = document.createElement("a");
+		a.href = image;
+		a.download = createFileName(extension, name);
+		a.click();
+	};
+	useEffect(() => {
+		if (image) {
+			// console.log({ image })
+			download(image, { name: "lorem-ipsum", extension: "png" });
+		}
+	}, [image]);
+
+	const callApi = async ({ operation }) => {
+		return; // <------- debug ; is old method ; update later
+		if (processing) return;
+		setProcessing(true);
+		let _query = { ...query };
+		if (operation === `edit`) {
+			_query.edit = {
+				version: choice,
+				iteration: `${editUserText}`,
+			};
+		}
+		setEditUserText(``);
+		try {
+			const response = await fetch(`http://localhost:1337/${operation}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(_query),
+			});
+
+			const reader = response.body.getReader();
+			const decoder = new TextDecoder();
+			let completion = ``;
+			while (true) {
+				const { done, value } = await reader.read();
+				if (done) {
+					break;
+				}
+				const chunk = decoder.decode(value);
+				completion += chunk;
+				setInferenceStream(completion);
+			}
+		} catch (error) {
+			console.error({ "genui:callApi:error": error });
+		}
+		setProcessing(false);
+	};
+
+	const loadComponent = async () => {
+		if (loaded) return;
+		setLoaded(true);
+
+		// reset everything
+		setComponent(null);
+		setComponents({});
+		setChoice("");
+		setVersions([]);
+		setLoaded(false);
+		setNewMenu(false);
+		setInferenceStream("");
+		setProcessing(false);
+
+		try {
+			const _meta = await import(
+				`@/_cofounder/generated/views/${viewId}/meta.json`
+			);
+			const meta = _meta.default; // Access the default export
+			// console.log({ id, choice: meta.choice, versions: meta.versions });
+
+			let loadedComponents: { [key: string]: React.FC } = {};
+			let problematicVersions: string[] = [];
+
+			await Promise.all(
+				meta.versions
+					.sort()
+					.reverse()
+					.map(async (version: string) => {
+						try {
+							// try fetch first
+							const response = await fetch(
+								`@/_cofounder/generated/views/${viewId}/${version}.tsx`,
+							);
+							console.log({ "debug:genui:view:fetch:response": response });
+							if (!response.ok) {
+								throw new Error(`genui:view:fetchversion:error: ${version}`);
+							}
+							const { default: LoadedVersionComponent } = await import(
+								`@/_cofounder/generated/views/${viewId}/${version}.tsx`
+							);
+							loadedComponents[version] = LoadedVersionComponent;
+							// console.log({ "genui:load:version:success": version });
+						} catch (err) {
+							console.log({ "genui:view:load:version:error": { version, err } });
+							problematicVersions.push(version);
+						}
+					}),
+			);
+
+			const workingVersions = meta.versions.filter(
+				(v) => !problematicVersions.includes(v),
+			);
+			setVersions(workingVersions);
+
+			if (!workingVersions.length) {
+				throw new Error("no working version found");
+			}
+			problematicVersions.map((_v) => {
+				delete loadedComponents[_v];
+			});
+
+			const _choice = problematicVersions.includes(meta.choice)
+				? `${workingVersions[0]}`
+				: `${meta.choice}`;
+
+			setChoice(_choice);
+			setComponents(loadedComponents);
+			setComponent(() => loadedComponents[_choice]);
+		} catch (e) {
+			// console.log({ "genui:error": e });
+			// await callApi({ operation: `new` });
+			/*
+				reload this current react component right here at this point in some way
+			*/
+			setLoaded(false);
+		}
+	};
+
+	useEffect(() => {
+		if (loaded) return;
+		loadComponent();
+	}, [viewId, loaded]);
+
+	const _delayed_api_updateVersionPreference = async ({ version }) => {
+		await new Promise((resolve) => setTimeout(resolve, 500));
+		await api_updateVersionPreference({ version });
+	};
+	useEffect(() => {
+		// should cascade alongside error-boundary to filter out bad components
+		if (versionsWithImportProblems.length) {
+			setVersions((prev) => {
+				const filteredVersions = prev.filter(
+					(version) => !versionsWithImportProblems.includes(version),
+				);
+				if (
+					filteredVersions.length &&
+					versionsWithImportProblems.includes(choice)
+				) {
+					setComponent(null);
+					setChoice("");
+					const newChoice = filteredVersions[0];
+					setChoice(newChoice);
+					setComponent(() => components[newChoice]);
+					_delayed_api_updateVersionPreference({ version: newChoice });
+				} else {
+					setComponent(null);
+					setChoice("");
+				}
+				return filteredVersions;
+			});
+		}
+	}, [versionsWithImportProblems]);
+
+	const api_updateVersionPreference = async ({ version }) => {
+		true; // do this next
+	};
+
+	const handleVersionChange = (version: string) => {
+		console.log(`handleVersionChange : ${viewId} : ${version}`);
+		setChoice(version);
+		setComponent(() => components[version]);
+	};
+
+	return (
+		<>
+			{cmdk && (
+				<div className="p-2 w-[100vw] bg-black text-white text-sm border-t border-b border-gray-500">
+					{viewId} : {JSON.stringify({ versions })} :{" "}
+					{JSON.stringify({ versionsWithImportProblems })} :{" "}
+					{JSON.stringify({ choice })}
+					<br />
+				</div>
+			)}
+
+			{(versions.length && Component && !processing && (
+				<>
+					<ErrorBoundary
+						key={choice}
+						type="views"
+						choice={choice}
+						setVersionsWithImportProblems={setVersionsWithImportProblems}
+					>
+						{Component && (
+							<div ref={ref} key={choice}>
+								<Component {...(_query || {})} />
+							</div>
+						)}
+					</ErrorBoundary>
+				</>
+			)) || <></>}
+
+			{cmdk && !versions.length && !processing && (
+				<div className="p-2 w-[100vw] bg-red-800 text-white text-sm">
+					no working version for {viewId} ; Try to regenerate ?
+				</div>
+			)}
+		</>
+	);
+};
+
+export default GenUiView;

@@ -1,0 +1,6 @@
+nodes:
+ PM:UXDMD::ANALYSIS:
+  desc: "{pm docs , db , openapi? , uxsitemap {analysis,struct,...}?} -> (<>
+   crossanalysis) to make UX Datamap Doc"
+  out:
+   - pm

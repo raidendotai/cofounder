@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color-scheme: light dark;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+*::selection {
+	background-color: #444;
+	color: white;
+	/* Selected state text color */
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+	/* Super thin scrollbar */
+	height: 5px;
+	/* Super thin horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+	background: #eee;
+	/* Light track */
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(150, 150, 150, 0.4);
+	/* Light thumb */
+	height: 50px;
+	/* Vertical scrollbar thumb height */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #aaa;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+	height: 5px;
+	/* Horizontal scrollbar thumb height */
+}
+
+@layer base {
+	:root {
+		--radius: 0.5rem;
+	}
+}

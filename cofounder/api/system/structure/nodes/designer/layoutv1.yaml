@@ -1,0 +1,8 @@
+# view:generate
+# view:iterate
+
+nodes:
+ DESIGNER:LAYOUTV1::VIEW:GENERATE:
+  desc: ""
+ DESIGNER:LAYOUTV1::VIEW:ITERATE:
+  desc: "(maybe similar to generate but with frontend render attached ? still not sure)"

@@ -1,0 +1,8 @@
+nodes:
+ PM:BRD::ANALYSIS:
+  desc: backend requirements doc
+  in:
+   - pm
+  out:
+   - pm
+   - backend

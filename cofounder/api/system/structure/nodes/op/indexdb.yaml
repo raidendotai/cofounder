@@ -1,0 +1,9 @@
+nodes:
+ op:INDEXDB::QUERY:
+  desc: "query from vector db ; currently one local index, later more indices, from url"
+  in:
+   - text
+   - vector
+   - amount
+  out:
+   - results

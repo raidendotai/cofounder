@@ -1,0 +1,73 @@
+primitives:
+ - id: heading
+   description: A primary heading for sectional content
+ - id: subheading
+   description: A secondary heading for a subsection of content
+ - id: text_line
+   description: A single line of text
+ - id: text_paragraph
+   description: A block of text longer than a line
+ - id: button
+   description: A clickable element used to perform actions
+   stretch: true
+ - id: link
+   description: A hyperlink pointing to another resource
+ - id: tag
+   description: An small capsule for categorizing or labeling - can also be used as a small status indicator or be clickable
+ - id: avatar
+   description: A graphical representation of either a user or brand, typically a photo or icon
+ - id: image
+   description: An element to display pictures or graphics
+   stretch: true
+ - id: icon
+   description: A graphical representation of an idea, action, or object
+ - id: input_datepicker
+   stretch: true
+   description: A control allowing the user to select a specific date
+ - id: input_description
+   stretch: true
+   description: An informational text describing an input field
+ - id: input_field
+   stretch: true
+   description: An input area where the user can enter text
+ - id: input_label
+   description: A label associated with an input field to describe its purpose
+ - id: input_searchfield
+   stretch: true
+   description: An input field specifically for search queries
+ - id: input_select
+   stretch: true
+   description: A dropdown menu allowing the user to choose from a list of options
+ - id: input_textarea
+   stretch: true
+   description: An input field for entering multi-line text
+ - id: radio_button
+   description: A control allowing the user to select one option from a group
+ - id: checkbox
+   description: A control that allows the user to select or deselect an option
+ - id: switch
+   description: A control allowing the user to toggle between two states
+ - id: slider
+   description: A control for selecting a value from a range
+ - id: media
+   description: An element for embedding video or audio
+   stretch: true
+ - id: map
+   description: A graphical representation of geographical information
+   stretch: true
+ - id: badge
+   description: A round indicator with a number inside it, used for example for counting or tracking
+ - id: calendar
+   description: A graphical representation of a calendar
+   stretch: true
+ - id: code_block
+   description: A block for displaying formatted code
+   stretch: true
+ - id: button_fab
+   description: A floating action round button that is sticky and fixed to the bottom right corner of the page
+ - id: progress_bar
+   description: A horizontal bar indicating progress toward completion
+   stretch: true
+ - id: nonprimitive
+   description: A placeholder for non-primitive components that should be designed based on description
+   stretch: true

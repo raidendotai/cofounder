@@ -1,0 +1,7 @@
+nodes:
+ PM:FRD::ANALYSIS:
+  desc: make {userdetails,prd} -> FRD analysis
+  in:
+   - pm
+  out:
+   - pm

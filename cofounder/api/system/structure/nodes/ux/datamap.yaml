@@ -1,0 +1,14 @@
+nodes:
+ UX:DATAMAP::STRUCTURE:
+  desc: "{...} -> app {routes, slugs, params , views} ; yaml ;; preconsider layout stuff too, either here or in sitemap"
+  out:
+   - uxdatamap
+ UX:DATAMAP::VIEWS:
+  desc: "{ ... } -> sections details with props & schemas ; yaml ;; preconsider layout stuff too, either here or in sitemap"
+  out:
+   - uxdatamap
+  mapreduce: true
+ UX:DATAMAP::VIEWS:CHUNK:
+  desc: "chunk processor for ux:datamap:views"
+  out:
+   - views

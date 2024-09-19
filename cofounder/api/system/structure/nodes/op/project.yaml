@@ -1,0 +1,11 @@
+nodes:
+ op:PROJECT::STATE:LOAD:
+  desc: "load project state ; local or network ; user/team and projectId should be inside context{}"
+ op:PROJECT::STATE:UPDATE:
+  desc: "save project state, modularly"
+ op:PROJECT::STATE:SAVE:
+  desc: "save project state, fully ; later preferably make backups before overwrite"
+ op:PROJECT::STATE:EXPORT:
+  desc: "export project"
+ op:PROJECT::STATE:SETUP:
+  desc: "export project"

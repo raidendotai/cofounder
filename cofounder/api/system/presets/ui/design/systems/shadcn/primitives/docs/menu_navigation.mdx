@@ -1,0 +1,44 @@
+Name : Navigation Menu
+Description : A collection of links for navigating websites.
+
+---
+
+### import
+
+```
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu"
+```
+
+---
+
+### use
+
+```navigation-menu.mdx
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuLink>Link</NavigationMenuLink>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+```
+
+```navigation-menu.mdx
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
+```
+
+---
+
+### examples

@@ -1,0 +1,111 @@
+primitives:
+ - id: heading_title
+   description: A primary heading for sectional content
+ - id: heading_subtitle
+   description: A secondary heading for a subsection of content
+ - id: text_line
+   description: A single line of text
+ - id: text_paragraph
+   description: A block of paragraph text
+ - id: button
+   description: Clickable element used to perform actions ; primary
+ - id: button_secondary
+   description: Clickable element used to perform actions ; secondary
+ - id: button_with_icon
+   description: Clickable element used to perform actions ; has both button text and icon
+ - id: button_icon_only
+   description: Clickable element used to perform actions ; has icon only
+ - id: link
+   description: A hyperlink pointing to another resource
+ - id: badge
+   description: Displays a component that looks like a badge or tag
+ - id: avatar
+   description: An image element for representing a user or brand, with a fallback to initials if the image is not loading
+   stretch: true
+ - id: image
+   description: An element to display pictures or graphics
+   stretch: true
+ - id: icon
+   description: A graphical representation of an idea, action, or object
+ - id: input_label
+   description: A label associated with an input field to describe its purpose
+ - id: input_description
+   description: An informational text describing an input field
+ - id: input_field
+   description: An input area where the user can enter text
+   stretch: true
+ - id: input_searchfield
+   description: An input field for search queries
+   stretch: true
+ - id: input_textarea
+   description: An input field for entering multi-line text
+   stretch: true
+ - id: input_combobox
+   description: Autocomplete input with a list of suggestions
+   stretch: true
+ - id: input_radio
+   description: A control allowing the user to select one option from a group
+ - id: input_select
+   description: A dropdown menu allowing the user to choose from a list of options
+   stretch: true
+ - id: input_switch
+   description: A control allowing the user to toggle between two states
+ - id: input_datepicker
+   description: A control allowing the user to select a date
+   stretch: true
+ - id: input_checkbox
+   description: A control that allows the user to toggle between checked and not checked
+ - id: table
+   description: A component to display data in a table format
+   stretch: true
+ - id: accordion
+   description: Interactive headings that expand on tap to reveal their content
+ #- id: card
+ #  description: Displays a card with header, content, and footer elements; that can contain any content ; useful for repeated large card elements such as shopping products
+ #  stretch: true
+ - id: menu_bar
+   description: A menu to access different parts of the application
+ - id: menu_navigation
+   description: A navigation menu to access different sections
+ - id: pagination
+   description: A component for navigating different pages
+ - id: tabs
+   description: A component for tabbed sections that allows to switch between different tabbed sections
+ - id: toggle
+   description: A button that toggles between two states
+   stretch: true
+ - id: bar_progress
+   description: A horizontal bar indicating progress toward completion
+   stretch: true
+ - id: bar_slider
+   description: A control for selecting a value from a range
+   stretch: true
+ - id: breadcrumbs
+   description: Displays the path to the current resource using a hierarchy of links
+ - id: calendar_datepicker
+   description: A date field component that allows users to enter and edit a date
+ - id: carousel_horizontal
+   description: A horizontal carousel for contained elements
+   stretch: true
+ - id: carousel_vertical
+   description: A vertical carousel for contained elements
+   stretch: true
+ - id: chart
+   description: Data-based chart component
+   stretch: true
+ #- id: dialog_overlay_trigger_button
+ #  description: A button that triggers an overlay component that has content (which renders the content underneath inert and displaying its content when triggered by the dialog trigger button)
+ #  stretch: true
+ - id: media
+   description: An element for embedding video or audio
+   stretch: true
+ - id: rating_stars
+   description: A component for rating items with stars
+ - id: tooltip
+   description: A small popup providing additional information about an element when it is hovered
+ - id: container
+   description: An empty container on which sections are put
+   stretch: true
+ - id: nonprimitive
+   description: A placeholder for non-primitive components that should be designed based on description
+   stretch: true

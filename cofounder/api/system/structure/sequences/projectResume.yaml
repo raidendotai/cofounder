@@ -1,0 +1,71 @@
+sequences:
+ "seq:project:init:v1:resume":
+  desc: "(for debug purposes) resume at various steps"
+  nodes:
+   ## init app folders (if export enabled)
+   #- op:PROJECT::STATE:SETUP
+
+   # product management layer
+   #- PM:PRD::ANALYSIS
+   #- PM:FRD::ANALYSIS
+   #- PM:DRD::ANALYSIS
+   #- PM:UXSMD::ANALYSIS
+
+   # db layer
+   #- DB:SCHEMAS::GENERATE
+   #- DB:POSTGRES::GENERATE
+
+   # product management layer
+   #- PM:BRD::ANALYSIS
+
+   # backend layer
+   #- BACKEND:OPENAPI::DEFINE # in case backend.requirements?.restApi?.required
+   #- BACKEND:ASYNCAPI::DEFINE # in case backend.requirements?.realtimeWebsockets?.required
+   #- BACKEND:SERVER::GENERATE
+
+   # product management layer
+   #- PM:UXDMD::ANALYSIS
+
+   # ux structure layer
+   #- UX:SITEMAP::STRUCTURE
+   #- UX:DATAMAP::STRUCTURE
+   #- UX:DATAMAP::VIEWS
+
+   # webapp & designer layer
+   #- WEBAPP:STORE::GENERATE # -> in it, calls swarm/review ?
+   - WEBAPP:ROOT::GENERATE # -> in it, calls swarm/review ?
+   - WEBAPP:VIEW::GENERATE:MULTI # -> in it, calls swarm/review ? -> if process.env.DESIGNER || in task.passes , calls designer
+
+  relations:
+   parents: # child node -> parent node rels
+    # product management layer
+    PM:PRD::ANALYSIS: ["op:PROJECT::STATE:SETUP"]
+    PM:FRD::ANALYSIS: ["PM:PRD::ANALYSIS"]
+    PM:DRD::ANALYSIS: ["PM:FRD::ANALYSIS"]
+
+    # db layer
+    DB:SCHEMAS::GENERATE: ["PM:DRD::ANALYSIS"]
+    DB:POSTGRES::GENERATE: ["DB:SCHEMAS::GENERATE"]
+
+    # product management layer
+    PM:BRD::ANALYSIS: ["DB:POSTGRES::GENERATE"]
+
+    # backend layer :
+    BACKEND:OPENAPI::DEFINE: ["PM:BRD::ANALYSIS"]
+    BACKEND:ASYNCAPI::DEFINE: ["PM:BRD::ANALYSIS"]
+    BACKEND:SERVER::GENERATE:
+     ["BACKEND:OPENAPI::DEFINE", "BACKEND:ASYNCAPI::DEFINE"]
+
+    # product management layer
+    PM:UXSMD::ANALYSIS: ["PM:FRD::ANALYSIS"]
+    PM:UXDMD::ANALYSIS: ["PM:UXSMD::ANALYSIS", "BACKEND:SERVER::GENERATE"]
+
+    # ux structure layer
+    UX:SITEMAP::STRUCTURE: ["PM:UXSMD::ANALYSIS"]
+    UX:DATAMAP::STRUCTURE: ["PM:UXDMD::ANALYSIS"]
+    UX:DATAMAP::VIEWS: ["UX:SITEMAP::STRUCTURE", "UX:DATAMAP::STRUCTURE"]
+
+    # webapp & designer layer
+    WEBAPP:STORE::GENERATE: ["UX:DATAMAP::VIEWS"]
+    WEBAPP:ROOT::GENERATE: ["WEBAPP:STORE::GENERATE"]
+    WEBAPP:VIEW::GENERATE:MULTI: ["WEBAPP:ROOT::GENERATE"]

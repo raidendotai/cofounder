@@ -1,0 +1,48 @@
+Name : Calendar
+Description : A date field component that allows users to enter and edit date.
+
+---
+
+### import
+
+```
+import { Calendar } from "@/components/ui/calendar"
+```
+
+---
+
+### use
+
+```calendar.mdx
+<Calendar
+  mode="single"
+  selected={date}
+  onSelect={setDate}
+  className="rounded-md border"
+/>
+```
+
+---
+
+### examples
+
+```calendar-demo.tsx
+"use client"
+
+import * as React from "react"
+
+import { Calendar } from "@/components/ui/calendar"
+
+export default function CalendarDemo() {
+  const [date, setDate] = React.useState<Date | undefined>(new Date())
+
+  return (
+    <Calendar
+      mode="single"
+      selected={date}
+      onSelect={setDate}
+      className="rounded-md border"
+    />
+  )
+}
+```

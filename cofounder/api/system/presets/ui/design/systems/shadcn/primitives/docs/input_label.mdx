@@ -1,0 +1,38 @@
+Name : Label
+Description : Renders an accessible label associated with controls.
+
+---
+
+### import
+
+```
+import { Label } from "@/components/ui/label"
+```
+
+---
+
+### use
+
+```label.mdx
+<Label htmlFor="email">Your email address</Label>
+```
+
+---
+
+### examples
+
+```label-demo.tsx
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
+
+export default function LabelDemo() {
+  return (
+    <div>
+      <div className="flex items-center space-x-2">
+        <Checkbox id="terms" />
+        <Label htmlFor="terms">Accept terms and conditions</Label>
+      </div>
+    </div>
+  )
+}
+```

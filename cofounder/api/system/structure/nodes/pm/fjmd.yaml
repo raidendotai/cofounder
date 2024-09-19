@@ -1,0 +1,7 @@
+nodes:
+ PM:FJMD::ANALYSIS:
+  desc: make {userdetails,prd,frd} -> FJMD analysis
+  in:
+   - pm
+  out:
+   - pm

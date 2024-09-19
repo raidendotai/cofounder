@@ -1,0 +1,62 @@
+---
+title: Breadcrumb
+description: Displays the path to the current resource using a hierarchy of links.
+component: true
+---
+
+## Usage
+
+```tsx
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+```
+
+```tsx
+<Breadcrumb>
+	<BreadcrumbList>
+		<BreadcrumbItem>
+			<BreadcrumbLink href="/">Home</BreadcrumbLink>
+		</BreadcrumbItem>
+		<BreadcrumbSeparator />
+		<BreadcrumbItem>
+			<BreadcrumbLink href="/components">Components</BreadcrumbLink>
+		</BreadcrumbItem>
+		<BreadcrumbSeparator />
+		<BreadcrumbItem>
+			<BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+		</BreadcrumbItem>
+	</BreadcrumbList>
+</Breadcrumb>
+```
+
+## Examples
+
+### Custom separator
+
+Use a custom component as `children` for `<BreadcrumbSeparator />` to create a custom separator.
+
+```tsx
+import { Slash } from "lucide-react"
+
+...
+
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator>
+      <Slash />
+    </BreadcrumbSeparator>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```

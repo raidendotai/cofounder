@@ -1,0 +1,124 @@
+Name : Button
+Description : Displays a button or a component that looks like a button.
+
+---
+
+### import
+
+```
+import { Button } from "@/components/ui/button"
+```
+
+---
+
+### use
+
+```button.mdx
+import { Button } from "@/components/ui/button"
+
+<Button variant="outline">Button</Button>
+```
+
+```button.mdx
+import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button"
+...
+<Link to="/">
+  <Button variant="outline">Button</Button>
+</Link>
+```
+
+---
+
+### examples
+
+```button-demo.tsx
+import { Button } from "@/components/ui/button"
+
+export default function ButtonDemo() {
+  return <Button>Button</Button>
+}
+```
+
+```button-destructive.tsx
+import { Button } from "@/components/ui/button"
+
+export default function ButtonDestructive() {
+  return <Button variant="destructive">Destructive</Button>
+}
+```
+
+```button-ghost.tsx
+import { Button } from "@/components/ui/button"
+
+export default function ButtonGhost() {
+  return <Button variant="ghost">Ghost</Button>
+}
+```
+
+```button-icon.tsx
+import { ChevronRight } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+
+export default function ButtonIcon() {
+  return (
+    <Button variant="outline" size="icon">
+      <ChevronRight className="h-4 w-4" />
+    </Button>
+  )
+}
+```
+
+```button-link.tsx
+import { Button } from "@/components/ui/button"
+
+export default function ButtonLink() {
+  return <Button variant="link">Link</Button>
+}
+```
+
+```button-loading.tsx
+import { Loader2 } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+
+export default function ButtonLoading() {
+  return (
+    <Button disabled>
+      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      Please wait
+    </Button>
+  )
+}
+```
+
+```button-outline.tsx
+import { Button } from "@/components/ui/button"
+
+export default function ButtonOutline() {
+  return <Button variant="outline">Outline</Button>
+}
+```
+
+```button-secondary.tsx
+import { Button } from "@/components/ui/button"
+
+export default function ButtonSecondary() {
+  return <Button variant="secondary">Secondary</Button>
+}
+```
+
+```button-with-icon.tsx
+import { Mail } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+
+export default function ButtonWithIcon() {
+  return (
+    <Button>
+      <Mail className="mr-2 h-4 w-4" /> Login with Email
+    </Button>
+  )
+}
+```

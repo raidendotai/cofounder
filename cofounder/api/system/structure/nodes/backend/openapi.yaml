@@ -1,0 +1,3 @@
+nodes:
+ BACKEND:OPENAPI::DEFINE:
+  desc: generate asyncAPI specs for realtime websockets (if applies)

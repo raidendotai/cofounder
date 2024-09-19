@@ -1,0 +1,9 @@
+nodes:
+ op:RENDER::LAYOUT:
+  desc: "render either { view , section , block } using utils.render and svg stuff"
+ out:
+  - svg # the post processed svg { string , structure }
+  - image # the render image { base64 , url }
+ queue:
+  concurrency: 50
+  retry: 1

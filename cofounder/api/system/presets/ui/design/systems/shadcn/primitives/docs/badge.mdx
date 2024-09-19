@@ -1,0 +1,59 @@
+Name : Badge
+Description : Displays a badge or a component that looks like a badge.
+
+---
+
+### import
+
+```
+import { Badge } from "@/components/ui/badge"
+```
+
+---
+
+### use
+
+```badge.mdx
+<Badge variant="outline">Badge</Badge>
+```
+
+```badge.mdx
+import { badgeVariants } from "@/components/ui/badge"
+<Link className={badgeVariants({ variant: "outline" })}>Badge</Link>
+```
+
+---
+
+### examples
+
+```badge-demo.tsx
+import { Badge } from "@/components/ui/badge"
+
+export default function BadgeDemo() {
+  return <Badge>Badge</Badge>
+}
+```
+
+```badge-destructive.tsx
+import { Badge } from "@/components/ui/badge"
+
+export default function BadgeDestructive() {
+  return <Badge variant="destructive">Destructive</Badge>
+}
+```
+
+```badge-outline.tsx
+import { Badge } from "@/components/ui/badge"
+
+export default function BadgeOutline() {
+  return <Badge variant="outline">Outline</Badge>
+}
+```
+
+```badge-secondary.tsx
+import { Badge } from "@/components/ui/badge"
+
+export default function BadgeSecondary() {
+  return <Badge variant="secondary">Secondary</Badge>
+}
+```

@@ -1,0 +1,5 @@
+nodes:
+ PM:DRD::ANALYSIS:
+  desc: make {userdetails,prd,frd,FJMD}  -> DRD analysis
+  out:
+   - pm

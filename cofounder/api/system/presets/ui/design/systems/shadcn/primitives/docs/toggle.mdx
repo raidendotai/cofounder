@@ -1,0 +1,107 @@
+Name : Toggle
+Description : A two-state button that can be either on or off.
+
+---
+
+### import
+
+```
+import { Toggle } from "@/components/ui/toggle"
+```
+
+---
+
+### use
+
+```toggle.mdx
+<Toggle>Toggle</Toggle>
+```
+
+---
+
+### examples
+
+```toggle-demo.tsx
+import { Bold } from "lucide-react"
+
+import { Toggle } from "@/components/ui/toggle"
+
+export default function ToggleDemo() {
+  return (
+    <Toggle aria-label="Toggle italic">
+      <Bold className="h-4 w-4" />
+    </Toggle>
+  )
+}
+```
+
+```toggle-disabled.tsx
+import { Underline } from "lucide-react"
+
+import { Toggle } from "@/components/ui/toggle"
+
+export default function ToggleDisabled() {
+  return (
+    <Toggle aria-label="Toggle italic" disabled>
+      <Underline className="h-4 w-4" />
+    </Toggle>
+  )
+}
+```
+
+```toggle-lg.tsx
+import { Italic } from "lucide-react"
+
+import { Toggle } from "@/components/ui/toggle"
+
+export default function ToggleLg() {
+  return (
+    <Toggle size="lg" aria-label="Toggle italic">
+      <Italic className="h-4 w-4" />
+    </Toggle>
+  )
+}
+```
+
+```toggle-outline.tsx
+import { Italic } from "lucide-react"
+
+import { Toggle } from "@/components/ui/toggle"
+
+export default function ToggleOutline() {
+  return (
+    <Toggle variant="outline" aria-label="Toggle italic">
+      <Italic className="h-4 w-4" />
+    </Toggle>
+  )
+}
+```
+
+```toggle-sm.tsx
+import { Italic } from "lucide-react"
+
+import { Toggle } from "@/components/ui/toggle"
+
+export default function ToggleSm() {
+  return (
+    <Toggle size="sm" aria-label="Toggle italic">
+      <Italic className="h-4 w-4" />
+    </Toggle>
+  )
+}
+```
+
+```toggle-with-text.tsx
+import { Italic } from "lucide-react"
+
+import { Toggle } from "@/components/ui/toggle"
+
+export default function ToggleWithText() {
+  return (
+    <Toggle aria-label="Toggle italic">
+      <Italic className="mr-2 h-4 w-4" />
+      Italic
+    </Toggle>
+  )
+}
+```

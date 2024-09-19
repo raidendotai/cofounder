@@ -1,0 +1,3 @@
+nodes:
+ WEBAPP:STORE::GENERATE:
+  desc: ""

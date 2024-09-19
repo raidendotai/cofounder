@@ -1,0 +1,13 @@
+# generate
+# redesign
+# iterate
+
+nodes:
+ WEBAPP:VIEW::GENERATE:MULTI:
+  desc: ""
+ WEBAPP:VIEW::GENERATE:
+  desc: ""
+ WEBAPP:VIEW::REDESIGN:
+  desc: ""
+ WEBAPP:VIEW::ITERATE:
+  desc: ""

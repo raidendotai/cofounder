@@ -1,0 +1,33 @@
+nodes:
+ op:LLM::GEN:
+  desc: "{model,messages,preparser,parser,...} -> { response , tokens
+   (consumption) }"
+  in:
+   - model
+   - messages
+   - preparser
+   - parser
+   - query
+   - stream
+  out:
+   - generated
+   - usage
+  queue:
+   concurrency: 1
+ op:LLM::VECTORIZE:
+  desc: "{texts} -> {vectors}"
+  in:
+   - texts
+  out:
+   - vectors
+   - usage
+ mapreduce: true
+ op:LLM::VECTORIZE:CHUNK:
+  desc: "{texts} -> {vectors}"
+  in:
+   - texts
+  out:
+   - vectors
+   - usage
+  queue:
+   concurrency: 50

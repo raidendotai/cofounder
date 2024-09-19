@@ -1,0 +1,3 @@
+nodes:
+ BACKEND:SERVER::GENERATE:
+  desc: generate (initial) server.js ; with potential decorators for ie. external APIS for swarm modules to pick up

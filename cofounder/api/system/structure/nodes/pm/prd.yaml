@@ -1,0 +1,8 @@
+nodes:
+ PM:PRD::ANALYSIS:
+  desc: make userprovided details -> PRD analysis ; user can have text + {pdf ,
+   images} (now just text), later extend
+  in:
+   - pm
+  out:
+   - pm

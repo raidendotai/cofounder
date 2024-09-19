@@ -1,0 +1,5 @@
+nodes:
+ PM:UXSMD::ANALYSIS:
+  desc: "{pm docs , db , openapi?} -> (<> crossanalysis) to make UX Sitemap doc"
+  out:
+   - pm

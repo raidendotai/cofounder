@@ -1,0 +1,24 @@
+nodes:
+ UX:SITEMAP::STRUCTURE:
+  desc: "{pm docs , db , openapi?, UXSMD} -> base uxsitemap {structure} : determines views; {normal,specialized,shared} ..."
+  out:
+   - uxsitemap
+ UX:SITEMAP::VIEWS:
+  desc: "{ ... } -> uxsitemap{...,views} ; details views more + details views' sections etc ; later, incorporate some RAG on which to base descriptions ? either here or further cascaded down the chain"
+  out:
+   - uxsitemap
+  mapreduce: true
+ UX:SITEMAP::VIEWS:NORMAL:
+  desc: "chunk processing from UX:SITEMAP::VIEWS ; for normal views"
+  out:
+   - views
+ UX:SITEMAP::VIEWS:SPECIAL:
+  desc:
+   "chunk processing from UX:SITEMAP::VIEWS; specialized processors for special sections ; ie. landing would be based
+   on some highconversion process etc;"
+  out:
+   - views
+ UX:SITEMAP::VIEWS:SHARED:
+  desc: "chunk processing from UX:SITEMAP::VIEWS ; for shared views implementations"
+  out:
+   - views

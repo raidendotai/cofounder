@@ -1,0 +1,6 @@
+# externalapis
+# packagedocs ? in case swarm modules need it
+
+nodes:
+ SWARM:AUGMENT::BACKEND:EXTERNALAPIS:
+  desc: ""

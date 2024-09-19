@@ -1,0 +1,3 @@
+nodes:
+ op:CONVERT::MARKDOWN:PDF:
+  desc: "{markdown} -> {pdf {base64 , url(cloudstorage) } }"
