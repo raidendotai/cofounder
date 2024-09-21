@@ -1,6 +1,7 @@
-[img]
 
-# cofounder : early alpha release
+![cofounder-og](https://github.com/user-attachments/assets/a9cda40f-0bf8-423b-815d-d8d6891f7ce3)
+
+# Cofounder | Early alpha release
 
 * project - [cofounder.openinterface.ai](https://cofounder.openinterface.ai)
 * 👋 [@n_raidenai](https://x.com/n_raidenai)
@@ -9,7 +10,11 @@
 - full stack generative web apps ; backend + db + stateful web apps
 - gen ui rooted in app architecture, with ai-guided mockup designer & modular design systems
 
-[demo]
+
+
+https://github.com/user-attachments/assets/b78d25aa-7cd3-49ee-a6f8-a952a77c8096
+
+
 
 ---
 
@@ -135,7 +140,12 @@ The default LLM concurrency is set to `1` so you can see what's happening in you
 
 # Architecture
 
-[img]
+[more details later]
+
+archi/v1 is as follows :
+
+![architecture](https://github.com/user-attachments/assets/b2d8b70e-7a6d-45c9-a706-0cf955d13451)
+
 
 ---
 

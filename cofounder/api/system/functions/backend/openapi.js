@@ -113,7 +113,7 @@ ${drd}
 ---
 
 \`\`\`DB:schemas
-${yaml.stringify({ schemas: db.schemas })}
+${yaml.stringify(db)}
 \`\`\`
 
 `,
