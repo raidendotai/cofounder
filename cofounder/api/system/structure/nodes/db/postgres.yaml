@@ -1,0 +1,6 @@
+nodes:
+  DB:POSTGRES::GENERATE:
+    desc: make {DRB, db{schemas,seed} } details -> postgres exec commands to {create
+      tables , insert seed examples}
+    out:
+      - db

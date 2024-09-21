@@ -1,0 +1,6 @@
+nodes:
+  DB:SCHEMAS::GENERATE:
+    desc: make {DRB}  -> db {schemas} ;; specify that for auth tables, password not
+      hashed ! for mockup
+    out:
+      - db
