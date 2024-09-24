@@ -10,8 +10,8 @@ async function promptRoot({ context, data }) {
 	const { uxsitemap, uxdatamap, webapp } = data;
 
 	const viewsImportHead = [
-		...Object.keys(uxsitemap.structure.views.shared),
-		...Object.keys(uxsitemap.structure.views.unique),
+		...( Object.keys(uxsitemap?.structure?.views?.shared) || {} ),
+		...( Object.keys(uxsitemap?.structure?.views?.unique) || {} ),
 	]
 		.map((viewId) => {
 			return `import ${viewId} from '@/components/views/${viewId}.tsx';`;

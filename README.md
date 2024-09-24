@@ -1,5 +1,5 @@
 
-![cofounder-og](https://github.com/user-attachments/assets/a9cda40f-0bf8-423b-815d-d8d6891f7ce3)
+![cofounder-og-black](https://github.com/user-attachments/assets/b4e51f02-59e4-4540-ac14-e1f40e20a658)
 
 # Cofounder | Early alpha release
 
@@ -12,7 +12,7 @@
 
 
 
-https://github.com/user-attachments/assets/b78d25aa-7cd3-49ee-a6f8-a952a77c8096
+https://github.com/user-attachments/assets/cfd09250-d21e-49fc-a29b-fa0c661abfc0
 
 
 
@@ -149,9 +149,8 @@ archi/v1 is as follows :
 
 ---
 
-# Some Credits
+# Credits
 
-- Cover art edited from image found in [patriciaklein.de](https://patriciaklein.de)
 - Demo design systems built using Figma renders / UI kits from:
   * blocks.pm by Hexa Plugin (see `cofounder/api/system/presets`)
   * google material

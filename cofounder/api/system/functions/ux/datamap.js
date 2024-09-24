@@ -210,7 +210,7 @@ async function uxDatamapViews({ context, data }) {
 
 	let tasks = [];
 
-	const UVs = Object.keys(uxsitemap.structure.views.unique);
+	const UVs = Object.keys(uxsitemap?.structure?.views?.unique) || {};
 	if (UVs.length) {
 		_chunkify(UVs, 5).map((uniqueViewsIdsChunk) => {
 			let filteredUxSitemap = { views: { unique: {} } };
@@ -227,7 +227,8 @@ async function uxDatamapViews({ context, data }) {
 			});
 		});
 	}
-	const GVs = Object.keys(uxsitemap.structure.views.shared);
+	
+	const GVs = Object.keys(uxsitemap?.structure?.views?.shared) || {};
 	if (GVs.length) {
 		tasks.push({
 			uxsitemap: { views: { shared: uxsitemap.structure.views.shared } }, // filtered ux sitemap with all shared views

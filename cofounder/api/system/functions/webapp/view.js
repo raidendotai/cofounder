@@ -16,7 +16,7 @@ async function webappViewGenerateMulti({ context, data }) {
 	};
 
 	const tasks = [
-		...Object.keys(views.unique).map((viewId) => {
+		...( Object.keys(views?.unique) || {} ).map((viewId) => {
 			return {
 				task: {
 					type: "view",
@@ -28,7 +28,7 @@ async function webappViewGenerateMulti({ context, data }) {
 				},
 			};
 		}),
-		...Object.keys(views.shared).map((viewId) => {
+		...( Object.keys(views?.shared) || {} ).map((viewId) => {
 			return {
 				task: {
 					type: "view",
