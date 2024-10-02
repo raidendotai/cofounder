@@ -70,7 +70,16 @@ you are a genius
 	const backendStructureRequirements = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "_pm.brd.requirements",
+					meta: {
+						name: "BRD Prepass",
+						desc: "backend structure requirements check",
+					},
+				},
+			},
 			data: {
 				model: `gpt-4o-mini`, //`gpt-4o`,
 				messages: backendPrompt,
@@ -295,7 +304,16 @@ you're a genius`,
 	const brd = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "pm.brd",
+					meta: {
+						name: "BRD",
+						desc: "backend requirements document",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages,

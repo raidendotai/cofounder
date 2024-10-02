@@ -13,7 +13,7 @@ nodes:
    - generated
    - usage
   queue:
-   concurrency: 1
+   concurrency: 2
  op:LLM::VECTORIZE:
   desc: "{texts} -> {vectors}"
   in:
@@ -31,3 +31,5 @@ nodes:
    - usage
   queue:
    concurrency: 50
+ op:LLM::DEBUG:SIMULATE:
+  desc: "simulate llm streams for dev"

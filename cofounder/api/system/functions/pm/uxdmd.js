@@ -186,7 +186,16 @@ you're a genius`,
 	const uxdmd = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "pm.uxdmd",
+					meta: {
+						name: "UXDMD",
+						desc: "ux datamap document",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, // `chatgpt-4o-latest`,//`gpt-4o`,
 				messages,

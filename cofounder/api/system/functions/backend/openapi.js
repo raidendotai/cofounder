@@ -136,7 +136,16 @@ you're a genius`,
 	const openapiStructure = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "backend.specifications.openapi",
+					meta: {
+						name: "openAPI",
+						desc: "openAPI specifications",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages,

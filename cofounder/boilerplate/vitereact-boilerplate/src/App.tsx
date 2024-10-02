@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import cofounder from "@/assets/cofounder.webp";
-import { Button } from "@/components/ui/button";
 
 const App: React.FC = () => {
 	return (

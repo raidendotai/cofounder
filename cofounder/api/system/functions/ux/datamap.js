@@ -151,7 +151,16 @@ ${uxdmd}
 	const uxdatamapStructure = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "uxdatamap.structure",
+					meta: {
+						name: "UX Datamap Structure",
+						desc: "define the app's data architecture",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`chatgpt-4o-latest`, // `chatgpt-4o-latest`,//`gpt-4o`,
 				messages,
@@ -227,7 +236,7 @@ async function uxDatamapViews({ context, data }) {
 			});
 		});
 	}
-	
+
 	const GVs = Object.keys(uxsitemap?.structure?.views?.shared) || {};
 	if (GVs.length) {
 		tasks.push({
@@ -470,7 +479,16 @@ you're a genius`,
 	const views = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "uxdatamap.views",
+					meta: {
+						name: "UX Datamap Views",
+						desc: "define views <> data architecture",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`chatgpt-4o-latest`, // `chatgpt-4o-latest`,//`gpt-4o`,
 				messages,

@@ -34,7 +34,7 @@ Still not merged with key target features of the project, notably :
 - code optimization
 - [...]
 
-Be patient :)
+be patient :)
 
 ---
 
@@ -45,14 +45,14 @@ Be patient :)
 * Open your terminal and run
 
 ```sh
-npx @openinterface/cofounder -p "YourAppProjectName" -d "describe your app here" -a "(optional) design instructions"
+npx @openinterface/cofounder
 ```
 
 Follow the instructions. The installer 
 - will ask you for your keys
 - setup dirs & start installs
 - will start the local `cofounder/api` builder and server
-- will start generating your app 🎉
+- will open the web dashboard where you can create new projects (at `http://localhost:667` ) 🎉
 
 ```
 note :
@@ -63,9 +63,16 @@ and can be used without limits during the current early alpha period
 the full index will be available for local download on v1 release
 ```
 
-## Run
+```sh
+# alternatively, you can make a new project without going through the dashboard
+# by runing :
+npx @openinterface/cofounder -p "YourAppProjectName" -d "describe your app here" -a "(optional) design instructions"
+```
 
-Your backend & vite+react web app will incrementally generate inside `./apps/{YourApp}`
+
+## Run Generated Apps
+
+- Your backend & vite+react web app will incrementally generate inside `./apps/{YourApp}`
 Open your terminal in `./apps/{YourApp}` and run
 
 ```sh
@@ -75,9 +82,14 @@ npm i && npm run dev
 It will start both the backend and vite+react, concurrently, after installing their dependencies
 Go to `http://localhost:5173/` to open the web app 🎉
 
+
+- From within the generated apps , you can use ⌘+K / Ctrl+K to iterate on UI components
+
+[more details later]
+
 ## Notes
 
-### Local API
+### Dashboard & Local API
 
 If you resume later and would like to iterate on your generated apps,
 the local `./cofounder/api` server needs to be running to receive queries
@@ -88,12 +100,15 @@ You can (re)start the `local cofounder API` running the following command from `
 npm run start
 ```
 
-You can also generate new apps from the same env by running, from `./cofounder/api`, one of these command
+The dashboard will open in `http://localhost:667`
 
-```sh
-npm run start -- -p "ProjectName" -f "some app description" -a "minimalist and spacious , light theme"
-npm run start -- -p "ProjectName" -f "./example_description.txt" -a "minimalist and spacious , light theme"
-```
+
+- note: You can also generate new apps from the same env, without the the dashboard, by running, from `./cofounder/api`, one of these commands
+    
+    ```sh
+    npm run start -- -p "ProjectName" -f "some app description" -a "minimalist and spacious , light theme"
+    npm run start -- -p "ProjectName" -f "./example_description.txt" -a "minimalist and spacious , light theme"
+    ```
 
 ### Concurrency
 
@@ -128,7 +143,7 @@ nodes:
 
 and change the `op:LLM::GEN` parameter `concurrency` to a higher value
 
-The default LLM concurrency is set to `1` so you can see what's happening in your console streams step by step - but you can increment it to `5`-`8`
+The default LLM concurrency is set to `2` so you can see what's happening in your console streams step by step - but you can increment it depending on your api keys limits
 
 ---
 
@@ -156,3 +171,4 @@ archi/v1 is as follows :
   * google material
   * figma core
   * shadcn
+- Dashboard node-based ui powered by [react flow](https://reactflow.dev/)

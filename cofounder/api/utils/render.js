@@ -69,11 +69,12 @@ async function _render({
 	const pngData = resvg.render();
 	const pngBuffer = pngData.asPng();
 
-	// console.info('Original SVG Size:', `${resvg.width} x ${resvg.height}`)
+	/*
 	console.info(
 		"> utils.render svg size : ",
 		`${pngData.width}x${pngData.height}`,
 	);
+	*/
 
 	const uid = crypto.randomUUID();
 

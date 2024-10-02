@@ -229,32 +229,40 @@ async function build({ system }) {
 						data,
 					});
 					const sequenceLength = sequence.length;
+					if (context.sequence) {
+						console.dir({ "debug:build:context:sequence": context.sequence });
+					}
+					const resume_at = context?.sequence?.resume ? context.sequence.resume : 0;
+					let step_index = -1;
 					for (const s of sequence.entries()) {
-						const [index, step] = s;
-						events.log.sequence.emit(`sequence:step:start`, {
-							id: sequenceId,
-							index,
-							over: sequenceLength,
-							context,
-							data,
-						});
-						await Promise.all(
-							step.map(async (parallelfnId) => {
-								const response = await system.run({
-									id: parallelfnId,
-									context: { ...context, run: system.run },
-									data,
-								});
-								data = merge(data, response);
-							}),
-						);
-						events.log.sequence.emit(`sequence:step:end`, {
-							id: sequenceId,
-							index,
-							over: sequenceLength,
-							context,
-							data,
-						});
+						step_index++;
+						if (step_index >= resume_at) {
+							const [index, step] = s;
+							events.log.sequence.emit(`sequence:step:start`, {
+								id: sequenceId,
+								index,
+								over: sequenceLength,
+								context,
+								data,
+							});
+							await Promise.all(
+								step.map(async (parallelfnId) => {
+									const response = await system.run({
+										id: parallelfnId,
+										context: { ...context, run: system.run },
+										data,
+									});
+									data = merge(data, response);
+								}),
+							);
+							events.log.sequence.emit(`sequence:step:end`, {
+								id: sequenceId,
+								index,
+								over: sequenceLength,
+								context,
+								data,
+							});
+						}
 					}
 					events.log.sequence.emit(`sequence:end`, {
 						id: sequenceId,

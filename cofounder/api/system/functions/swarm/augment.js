@@ -309,7 +309,16 @@ async function swarmAugmentBackendExternalapis({ context, data }) {
 	const analysisPass = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "swarm.augment.analysis",
+					meta: {
+						name: "Swarm Post-Gen Check",
+						desc: "analysis pass",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: messagesAnalysis,
@@ -324,7 +333,16 @@ async function swarmAugmentBackendExternalapis({ context, data }) {
 	const messagesImplementMerge = await promptImplementMerge({ context, data });
 	const { generated } = await context.run({
 		id: "op:LLM::GEN",
-		context,
+		context: {
+			...context, // {streams , project}
+			operation: {
+				key: "swarm.augment.implement",
+				meta: {
+					name: "Swarm Code Update",
+					desc: "implement changes & merge",
+				},
+			},
+		},
 		data: {
 			model: `chatgpt-4o-latest`, //`gpt-4o`,
 			messages: messagesImplementMerge,

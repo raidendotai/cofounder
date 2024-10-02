@@ -286,7 +286,16 @@ now do the analysis , write the full working script and specify the dependencies
 
 	const { generated } = await context.run({
 		id: "op:LLM::GEN",
-		context,
+		context: {
+			...context, // {streams , project}
+			operation: {
+				key: "backend.server.main",
+				meta: {
+					name: "Backend code",
+					desc: "backend server main",
+				},
+			},
+		},
 		data: {
 			model: `chatgpt-4o-latest`, //`gpt-4o`,
 			messages: messages,
@@ -316,6 +325,23 @@ now do the analysis , write the full working script and specify the dependencies
 		env: parsedYaml.env ? parsedYaml.env : {},
 		timestamp: Date.now(),
 	};
+
+	/*
+	await context.run({
+		id: "op:PROJECT::STATE:UPDATE",
+		context,
+		data: {
+			operation: {
+				id: "backend:server:main",
+			},
+			type: `end`,
+			content: {
+				key: "backend.server.main",
+				data: generatedServer,
+			},
+		},
+	});
+	*/
 
 	// call swarm/agument:external-apis without waiting ; it will iterate it finds any external api decorators and replace
 	generatedServer = {

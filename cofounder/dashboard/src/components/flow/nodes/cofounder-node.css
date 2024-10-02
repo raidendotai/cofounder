@@ -1,0 +1,78 @@
+.react-flow__node-cofounder_node {
+	background: #000000;
+	border: 1px solid #555;
+	border-radius: 5px;
+	text-align: left;
+}
+
+.markdown {
+	color: #ffffff; /* Text color for dark mode */
+	font-size: 0.975rem; /* 50% of typical size */
+	line-height: 1.3; /* Adjusted spacing between lines */
+	padding: 0.3rem; /* Reduced padding around the markdown container */
+	border-bottom: 1px solid #555; /* Separator border for sections */
+	margin-bottom: 1rem; /* Space below the markdown container */
+	-webkit-font-smoothing: antialiased;
+}
+.markdown h1 {
+	font-size: 1.5rem; /* 50% of typical h1 size */
+	margin: 0.3rem 0; /* Reduced margin above and below */
+	border-bottom: 1px solid #444; /* Separator border below h1 */
+	padding-bottom: 0.2rem; /* Padding below h1 */
+}
+
+.markdown h2 {
+	font-size: 1.25rem; /* 50% of typical h2 size */
+	margin: 0.3rem 0; /* Reduced margin above and below */
+	border-bottom: 1px solid #444; /* Separator border below h2 */
+	padding-bottom: 0.2rem; /* Padding below h2 */
+}
+
+.markdown h3 {
+	font-size: 1rem; /* 50% of typical h3 size */
+	margin: 0.2rem 0; /* Reduced margin above and below */
+	border-bottom: 1px solid #444; /* Separator border below h3 */
+	padding-bottom: 0.2rem; /* Padding below h3 */
+}
+
+.markdown p {
+	margin: 0.3rem 0; /* Reduced margin above and below paragraphs */
+	line-height: 1.75;
+	/* Added line spacing for better readability */
+}
+
+.markdown ul,
+.markdown ol {
+	margin: 0.3rem 0; /* Reduced margin above and below lists */
+	padding-left: 1.2rem; /* Slightly reduced indentation for lists */
+}
+
+.markdown li {
+	margin: 0.1rem 0; /* Reduced margin above and below list items */
+	border-bottom: 1px solid #222;
+}
+
+.markdown blockquote {
+	border-left: 2px solid #555; /* Border for blockquotes */
+	padding-left: 0.5rem; /* Padding for blockquote text */
+	color: #cccccc; /* Lighter text color for blockquotes */
+	margin: 0.3rem 0; /* Reduced margin above and below blockquotes */
+	border-bottom: 1px solid #222;
+}
+
+.markdown code {
+	background-color: #222; /* Background for inline code */
+	color: #f8f8f2; /* Text color for inline code */
+	padding: 0.2rem 0.4rem; /* Padding for inline code */
+	margin: 0.1rem; /* Little margin for inline code */
+	border-radius: 3px; /* Rounded corners for inline code */
+}
+
+.markdown pre {
+	background-color: #111; /* Background for code blocks */
+	color: #f8f8f2; /* Text color for code blocks */
+	padding: 0.4rem; /* Reduced padding for code blocks */
+	border-radius: 5px; /* Rounded corners for code blocks */
+	overflow: auto; /* Allow scrolling for long code blocks */
+	margin: 0.3rem 0; /* Reduced margin above and below code blocks */
+}

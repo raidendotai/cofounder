@@ -112,7 +112,16 @@ you're a genius`
 	const schemas = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "db.schemas",
+					meta: {
+						name: "DB Schemas",
+						desc: "db tables schemas",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`,//`gpt-4o`,
 				messages,

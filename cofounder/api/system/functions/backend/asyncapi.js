@@ -131,7 +131,16 @@ you're a genius`,
 	const asyncapiStructure = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "backend.specifications.asyncapi",
+					meta: {
+						name: "asyncAPI",
+						desc: "asyncAPI specifications",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages,

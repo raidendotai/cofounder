@@ -5,7 +5,7 @@ import fs from "fs";
 import yaml from "yaml";
 import dotenv from "dotenv";
 import fsextra from "fs-extra";
-import { execSync } from "child_process";
+import { exec, execSync } from "child_process";
 dotenv.config();
 
 /*
@@ -107,6 +107,12 @@ const config = {
 	],
 };
 
+async function run_npm_i(dependenciesRootPath) {
+	exec(`npm i`, {
+		stdio: "inherit",
+		cwd: dependenciesRootPath, // folder where package.json is
+	});
+}
 async function _exportOnSave({ context, data }) {
 	if (
 		!(
@@ -511,10 +517,31 @@ export default {{ID}};
 				console.log(
 					`\x1b[33m> dependencies updated for : ${dependenciesRootPath}\n> now running 'npm i' inside that folder\x1b[0m`,
 				);
-				execSync(`npm i`, {
-					stdio: "inherit",
-					cwd: dependenciesRootPath, // folder where package.json is
-				});
+
+				if (context.streams) {
+					await context.streams.start({
+						project,
+						key: "project.dependencies.install",
+						meta: {
+							name: "Install dependencies",
+							desc: "running 'npm i' in app dir",
+						},
+					});
+					await context.streams.write({
+						project,
+						key: "project.dependencies.install",
+						data: `command : 'npm i'\n\n---\n\nupdate :\n\n${yaml.stringify(task.data)}\n\n---\n\npath : ${dependenciesRootPath}`,
+					});
+				}
+
+				run_npm_i(dependenciesRootPath);
+
+				if (context.streams) {
+					await context.streams.end({
+						project,
+						key: "project.dependencies.install",
+					});
+				}
 			}
 		}),
 	);
@@ -584,7 +611,9 @@ async function opProjectStateUpdate({ context, data }) {
 		// query.data = { ...query.data, ...content }
 	}
 	if (content) query.data = { ...query.data, ...content };
-	console.dir({ "debug:op:project:state:update": { query } }, { depth: null });
+
+	console.dir({ "debug:op:project:state:update": { query } });
+
 	if (
 		process.env.STATE_LOCAL &&
 		JSON.parse(process.env.STATE_LOCAL.toLowerCase())
@@ -605,7 +634,14 @@ async function opProjectStateUpdate({ context, data }) {
 			}
 		}
 		fs.writeFileSync(localPath, yaml.stringify(query.data), "utf8");
+		if (context.streams) {
+			await context.streams.update({
+				project,
+				...query.data, // query.data : { key , data }
+			});
+		}
 	}
+
 	if (
 		process.env.STATE_CLOUD &&
 		JSON.parse(process.env.STATE_CLOUD.toLowerCase())

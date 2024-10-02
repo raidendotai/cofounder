@@ -84,8 +84,16 @@ ask yourself:
 ---
 
 important :
+
 > do not many any "Container" views (like some GV_GlobalContainer or something) ; DO NOT make any container views to contain other views inside of them !
 	only make unique UV_* or GV_* shared views : views that serve a functional purpose ; not container views !
+
+> GV_* shared views are INDEPENDENT from UV_* !
+	UV_* views DO NOT INTEGRATE GV_* views inside them !
+	they simply share screen space !!
+	do not make any UV_* functionality dependent on GV_*
+	do not make any GV_* functionality dependent on GV_*
+	they are independent , they do not include each other , shared simply means sharing screen space , not functionalities !
 
 ---
 
@@ -124,7 +132,16 @@ you're a genius`,
 	const uxsmd = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "pm.uxsmd",
+					meta: {
+						name: "UXSMD",
+						desc: "ux sitemap document",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages,

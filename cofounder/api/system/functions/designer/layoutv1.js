@@ -354,7 +354,7 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 			data: {
 				index: "layouts",
 				text: ragText,
-				amount: 4,
+				amount: 5,
 			},
 		})
 	).results
@@ -378,26 +378,34 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 			rag.map(async (item) => {
 				const { url } = item.image_url;
 				try {
-					let metadata;
+					let buffer;
 					if (url.startsWith("data:image/")) {
 						// Handle base64 image
 						const base64Data = url.split("base64,")[1];
-						const buffer = Buffer.from(base64Data, "base64");
-						metadata = await sharp(buffer).metadata();
+						buffer = Buffer.from(base64Data, "base64");
 					} else if (url.startsWith("https://")) {
 						// Handle URL image
 						const response = await fetch(url);
 						if (!response.ok) {
-							console.err(`designer:layoutv1:rag : failed to fetch image`);
+							console.error(`designer:layoutv1:rag : failed to fetch image`);
 							return null;
 						}
 						const arrayBuffer = await response.arrayBuffer();
-						const buffer = Buffer.from(arrayBuffer);
-						metadata = await sharp(buffer).metadata();
+						buffer = Buffer.from(arrayBuffer);
 					} else {
 						// Invalid URL format, return null to filter out later
 						return null;
 					}
+
+					// Check image size using byteLength method
+					if (Buffer.byteLength(buffer) > 4.5 * 1024 * 1024) {
+						// 4.5 MB in bytes
+						console.error(`> skipping : image size exceeds 4.5 MB`);
+						return null;
+					}
+
+					const metadata = await sharp(buffer).metadata();
+
 					// Check image dimensions
 					if (
 						metadata.width >= 8000 ||
@@ -409,13 +417,13 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 					}
 					return item;
 				} catch (error) {
-					console.error(`> skipping : error processing RAG image at ${url}:`, error);
+					console.error(`> skipping : error processing RAG image : `, error);
 					return null; // Return null if there's an error
 				}
 			}),
 		)
 	)
-		.filter((item) => item !== null)
+		.filter((item) => item)
 		.slice(0, 3); // fetched more than needed in case size filtered ; typically indexed landing pages dims can be too big
 
 	data.task.rag = rag;
@@ -442,7 +450,16 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 	const analysisPass = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: `designer.layoutv1.analysis.${view.id}`,
+					meta: {
+						name: `Designer Analysis { ${view.id} }`,
+						desc: "designer/layoutv1 task analysis",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: analysisPassMessages,
@@ -458,7 +475,17 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 	const svgPass = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: `designer.layoutv1.mockup.${view.id}`,
+					meta: {
+						name: `Designer Mockup { ${view.id} }`,
+						desc: "designer/layoutv1 mockup generation",
+					},
+					cutoff: "```svg",
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: svgPassMessages,
@@ -484,7 +511,7 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 		svg = await xml2js.parseStringPromise(response.svg, {
 			explicitArray: true,
 		});
-		console.dir({ "debug:designer:layoutv1:svg": svg }, { depth: null });
+		// console.dir({ "debug:designer:layoutv1:svg": svg }, { depth: null });
 		if (!svg.svg.rect.filter((item) => item.$?.primitiveId).length) {
 			console.error(`layout error : generated != task ; skipping`);
 		}
@@ -817,7 +844,7 @@ async function designerLayoutv1ViewIterate({ context, data }) {
 			data: {
 				index: "layouts",
 				text: ragText,
-				amount: 4,
+				amount: 5,
 			},
 		})
 	).results
@@ -841,26 +868,34 @@ async function designerLayoutv1ViewIterate({ context, data }) {
 			rag.map(async (item) => {
 				const { url } = item.image_url;
 				try {
-					let metadata;
+					let buffer;
 					if (url.startsWith("data:image/")) {
 						// Handle base64 image
 						const base64Data = url.split("base64,")[1];
-						const buffer = Buffer.from(base64Data, "base64");
-						metadata = await sharp(buffer).metadata();
+						buffer = Buffer.from(base64Data, "base64");
 					} else if (url.startsWith("https://")) {
 						// Handle URL image
 						const response = await fetch(url);
 						if (!response.ok) {
-							console.err(`designer:layoutv1:rag : failed to fetch image`);
+							console.error(`designer:layoutv1:rag : failed to fetch image`);
 							return null;
 						}
 						const arrayBuffer = await response.arrayBuffer();
-						const buffer = Buffer.from(arrayBuffer);
-						metadata = await sharp(buffer).metadata();
+						buffer = Buffer.from(arrayBuffer);
 					} else {
 						// Invalid URL format, return null to filter out later
 						return null;
 					}
+
+					// Check image size
+					if (Buffer.byteLength(buffer) > 4.5 * 1024 * 1024) {
+						// 4.5 MB in bytes
+						console.error(`> skipping : image size exceeds 4.5 MB`);
+						return null;
+					}
+
+					const metadata = await sharp(buffer).metadata();
+
 					// Check image dimensions
 					if (
 						metadata.width >= 8000 ||
@@ -872,10 +907,7 @@ async function designerLayoutv1ViewIterate({ context, data }) {
 					}
 					return item;
 				} catch (error) {
-					console.error(
-						`> skipping : error processing analysis RAG image at ${url}:`,
-						error,
-					);
+					console.error(`> skipping : error processing RAG image`, error);
 					return null; // Return null if there's an error
 				}
 			}),
@@ -902,7 +934,17 @@ async function designerLayoutv1ViewIterate({ context, data }) {
 	const svgPass = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: `designer.layoutv1.mockup.${view.id}`,
+					meta: {
+						name: `Designer Mockup { ${view.id} }`,
+						desc: "designer/layoutv1 mockup generation",
+					},
+					cutoff: "```svg",
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: svgIterateMessages,
@@ -928,7 +970,7 @@ async function designerLayoutv1ViewIterate({ context, data }) {
 		svg = await xml2js.parseStringPromise(response.svg, {
 			explicitArray: true,
 		});
-		console.dir({ "debug:designer:layoutv1:svg": svg }, { depth: null });
+		// console.dir({ "debug:designer:layoutv1:svg": svg }, { depth: null });
 		if (!svg.svg.rect.filter((item) => item.$?.primitiveId).length) {
 			console.error(`layout error : generated != task ; skipping`);
 		}

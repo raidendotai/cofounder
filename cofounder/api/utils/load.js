@@ -40,7 +40,7 @@ async function readLocal({ project }) {
 	return db;
 }
 
-async function loadLocal({ project }) {
+async function loadLocal({ project, deconstructed = false }) {
 	const db = await readLocal({ project });
 	let state = {};
 	/*
@@ -95,8 +95,9 @@ async function loadLocal({ project }) {
 			current = current[k];
 		});
 	});
-
-	return state;
+	if (!deconstructed) return state;
+	const keymap = Object.fromEntries(db.map(({ key, data }) => [key, data]));
+	return { state, keymap };
 }
 
 async function readCloud({ project }) {

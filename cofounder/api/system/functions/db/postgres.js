@@ -97,7 +97,16 @@ you're a genius`
 	const postgres = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "db.postgres",
+					meta: {
+						name: "DB Postgresql",
+						desc: "db postgres commands {tables,seed}",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`,//`gpt-4o`,
 				messages,

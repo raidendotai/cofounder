@@ -194,7 +194,16 @@ async function webappStoreGenerate({ context, data }) {
 
 	const { generated } = await context.run({
 		id: "op:LLM::GEN",
-		context,
+		context: {
+			...context, // {streams , project}
+			operation: {
+				key: `webapp.react.store.redux.latest`,
+				meta: {
+					name: "Webapp Data Store",
+					desc: "redux data store component code",
+				},
+			},
+		},
 		data: {
 			model: `chatgpt-4o-latest`, //`gpt-4o`,
 			messages: messages,

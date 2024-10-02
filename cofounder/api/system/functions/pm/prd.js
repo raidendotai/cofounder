@@ -94,7 +94,16 @@ you are a genius`,
 	const prd = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "pm.prd",
+					meta: {
+						name: "PRD",
+						desc: "product requirements document",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages,

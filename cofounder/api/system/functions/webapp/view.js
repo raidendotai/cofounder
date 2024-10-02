@@ -16,7 +16,7 @@ async function webappViewGenerateMulti({ context, data }) {
 	};
 
 	const tasks = [
-		...( Object.keys(views?.unique) || {} ).map((viewId) => {
+		...(Object.keys(views?.unique) || {}).map((viewId) => {
 			return {
 				task: {
 					type: "view",
@@ -28,7 +28,7 @@ async function webappViewGenerateMulti({ context, data }) {
 				},
 			};
 		}),
-		...( Object.keys(views?.shared) || {} ).map((viewId) => {
+		...(Object.keys(views?.shared) || {}).map((viewId) => {
 			return {
 				task: {
 					type: "view",
@@ -502,7 +502,16 @@ async function webappViewGenerate({ context, data }) {
 
 		const { generated } = await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: `webapp.react.views.${view.id}.latest`,
+					meta: {
+						name: `Webapp View Implement { ${view.id} }`,
+						desc: "react view, functional pass",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: messagesFunctional,
@@ -679,7 +688,16 @@ async function webappViewGenerate({ context, data }) {
 
 		const { generated } = await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: `webapp.react.views.${view.id}.latest`,
+					meta: {
+						name: `Webapp View Redesign { ${view.id} }`,
+						desc: "react view, redesign pass",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: messagesRedesign,
@@ -1222,7 +1240,16 @@ async function webappViewIterate({ context, data }) {
 
 		const { generated } = await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: `webapp.react.views.${view.id}.latest`,
+					meta: {
+						name: `Webapp View Iterate { ${view.id} }`,
+						desc: "react view iteration , code only",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: promptMessagesNoDesigner,
@@ -1377,7 +1404,16 @@ async function webappViewIterate({ context, data }) {
 
 		const { generated } = await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: `webapp.react.views.${view.id}.latest`,
+					meta: {
+						name: `Webapp View Iterate { ${view.id} }`,
+						desc: "react view iteration , with designer",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, //`gpt-4o`,
 				messages: mesagesIterateWithDesigner,

@@ -93,7 +93,16 @@ You're a genius do a great job`,
 	const uxsitemapStructure = (
 		await context.run({
 			id: "op:LLM::GEN",
-			context,
+			context: {
+				...context, // {streams , project}
+				operation: {
+					key: "uxsitemap.structure",
+					meta: {
+						name: "UX Sitemap Structure",
+						desc: "define sitemap <> views architecture",
+					},
+				},
+			},
 			data: {
 				model: `chatgpt-4o-latest`, // `chatgpt-4o-latest`,//`gpt-4o`,
 				messages,

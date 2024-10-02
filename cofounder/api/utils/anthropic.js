@@ -78,17 +78,33 @@ async function inference({
 		max_tokens: 8192,
 		messages: converted.messages,
 	});
+
 	let text = "";
 	let usage = {};
-
+	let cutoff_reached = false;
+	let chunks_buffer = "";
+	let chunks_iterator = 0;
+	const chunks_every = 5;
 	for await (const event of streaming) {
 		if (
 			event.type === "content_block_delta" &&
 			event.delta.type === "text_delta"
 		) {
 			const content = event.delta.text;
-			stream.write(content);
-			text += content;
+			if (content) {
+				text += content;
+				chunks_buffer += content;
+				chunks_iterator++;
+				if (stream?.cutoff) {
+					if (!cutoff_reached && text.includes(stream.cutoff)) {
+						cutoff_reached = true;
+					}
+				}
+				if (!(chunks_iterator % chunks_every)) {
+					stream.write(!cutoff_reached ? chunks_buffer : " ...");
+					chunks_buffer = "";
+				}
+			}
 		}
 	}
 	stream.write("\n");

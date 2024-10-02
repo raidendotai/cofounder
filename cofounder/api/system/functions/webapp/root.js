@@ -10,8 +10,8 @@ async function promptRoot({ context, data }) {
 	const { uxsitemap, uxdatamap, webapp } = data;
 
 	const viewsImportHead = [
-		...( Object.keys(uxsitemap?.structure?.views?.shared) || {} ),
-		...( Object.keys(uxsitemap?.structure?.views?.unique) || {} ),
+		...(Object.keys(uxsitemap?.structure?.views?.shared) || {}),
+		...(Object.keys(uxsitemap?.structure?.views?.unique) || {}),
 	]
 		.map((viewId) => {
 			return `import ${viewId} from '@/components/views/${viewId}.tsx';`;
@@ -194,7 +194,16 @@ async function webappRootGenerate({ context, data }) {
 
 	const { generated } = await context.run({
 		id: "op:LLM::GEN",
-		context,
+		context: {
+			...context, // {streams , project}
+			operation: {
+				key: `webapp.react.root.app.latest`,
+				meta: {
+					name: "Webapp Root Component",
+					desc: "react App.tsx component code",
+				},
+			},
+		},
 		data: {
 			model: `chatgpt-4o-latest`, //`gpt-4o`,
 			messages: messages,
