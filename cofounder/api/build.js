@@ -82,7 +82,7 @@ async function build({ system }) {
 						return await queues[id].add(async () => {
 							events.log.node.emit(`start`, { id, context, data });
 							const response = await retry(
-								async (bail) => {
+								async (bail, attempt) => {
 									try {
 										const fnresponse = await system.functions[id]({
 											context: { ...context, run: system.run },
@@ -93,6 +93,14 @@ async function build({ system }) {
 													) // higher perf than fromPairs ?
 												: data,
 										});
+
+										if (!fnresponse || (id === 'BACKEND:SERVER::GENERATE' && !fnresponse.backend.server.main.mjs)) {
+											if (attempt >= (parseInt(system.nodes[id].queue?.retry) || 5)) {
+												console.error(`backend:server:generate error - generated is empty after ${attempt} attempts`);
+												return { success: false };
+											}
+											throw new Error("backend:server:generate error - generated is empty");
+										}
 
 										return !fnresponse
 											? { success: false }
