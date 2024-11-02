@@ -91,7 +91,7 @@ const BreadcrumbSeparator = ({
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
-const BreadcrumbEllipsis = ({
+const BreadcrumbElipsis = ({
 	className,
 	...props
 }: React.ComponentProps<"span">) => (
@@ -105,7 +105,7 @@ const BreadcrumbEllipsis = ({
 		<span className="sr-only">More</span>
 	</span>
 );
-BreadcrumbEllipsis.displayName = "BreadcrumbElipssis";
+BreadcrumbElipsis.displayName = "BreadcrumbElipsis";
 
 export {
 	Breadcrumb,
@@ -114,5 +114,5 @@ export {
 	BreadcrumbLink,
 	BreadcrumbPage,
 	BreadcrumbSeparator,
-	BreadcrumbEllipsis,
+	BreadcrumbElipsis,
 };
