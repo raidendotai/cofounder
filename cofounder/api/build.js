@@ -128,12 +128,12 @@ async function build({ system }) {
 		),
 	);
 	/*
-    make the DAG graph decomposition parallelizor from the system and relations
-    handle : seq , parallel , recursion too !
-  */
+		make the DAG graph decomposition parallelizor from the system and relations
+		handle : seq , parallel , recursion too !
+	*/
 	/*
-    event registration for system triggers (nodes are all registered for events node:{id} )
-  */
+		event registration for system triggers (nodes are all registered for events node:{id} )
+	*/
 
 	if (LOGS_ENABLED) {
 		events.log.sequence.on(`sequence:start`, ({ id, context, data }) => {
