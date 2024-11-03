@@ -106,7 +106,7 @@ npm run start
 The dashboard will open in `http://localhost:667`
 
 
-- note: You can also generate new apps from the same env, without the the dashboard, by running, from `./cofounder/api`, one of these commands
+- note: You can also generate new apps from the same env, without the dashboard, by running, from `./cofounder/api`, one of these commands
     
     ```sh
     npm run start -- -p "ProjectName" -f "some app description" -a "minimalist and spacious , light theme"
