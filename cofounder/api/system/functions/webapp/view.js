@@ -513,7 +513,7 @@ async function webappViewGenerate({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: messagesFunctional,
 				preparser: false,
 				parser: false,
@@ -699,7 +699,7 @@ async function webappViewGenerate({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: messagesRedesign,
 				preparser: false,
 				parser: false,
@@ -1251,7 +1251,7 @@ async function webappViewIterate({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: promptMessagesNoDesigner,
 				preparser: false,
 				parser: false,
@@ -1415,7 +1415,7 @@ async function webappViewIterate({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: mesagesIterateWithDesigner,
 				preparser: false,
 				parser: false,

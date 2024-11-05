@@ -461,7 +461,7 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: analysisPassMessages,
 				preparser: `backticks`,
 				parser: false,
@@ -487,7 +487,7 @@ async function designerLayoutv1ViewGenerate({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: svgPassMessages,
 				preparser: false,
 				parser: false,
@@ -946,7 +946,7 @@ async function designerLayoutv1ViewIterate({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: svgIterateMessages,
 				preparser: false,
 				parser: false,
