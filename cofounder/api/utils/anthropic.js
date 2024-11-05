@@ -62,7 +62,7 @@ async function _convertFromOpenaiFormat({ messages }) {
 }
 
 async function inference({
-	model = "claude-3-5-sonnet-20240620",
+	model = "claude-3-5-sonnet-20241022",
 	messages,
 	stream = process.stdout,
 }) {
@@ -70,7 +70,7 @@ async function inference({
 	const converted = await _convertFromOpenaiFormat({ messages });
 	// console.dir({ "debug:utils:anthropic": {messages : converted.messages} } , {depth:null})
 
-	const _model = model.includes("gpt") ? "claude-3-5-sonnet-20240620" : model;
+	const _model = model.includes("gpt") ? "claude-3-5-sonnet-20241022" : model;
 	const streaming = await anthropic.messages.create({
 		model: _model,
 		stream: true,
