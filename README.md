@@ -4,7 +4,6 @@
 # Cofounder | Early alpha release
 
 * project - [cofounder.openinterface.ai](https://cofounder.openinterface.ai)
-* 👋 [@n_raidenai](https://x.com/n_raidenai)
 
 **cofounder**
 - full stack generative web apps ; backend + db + stateful web apps
