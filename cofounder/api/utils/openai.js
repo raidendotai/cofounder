@@ -7,13 +7,14 @@ let openai;
 try {
 	openai = new OpenAI({
 		apiKey: process.env.OPENAI_API_KEY,
+		baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
 	});
 } catch (e) {
 	console.error("utils:openai : " + e);
 }
 
 async function inference({
-	model = `gpt-4o-mini`,
+	model = process.env.OPENAI_MODEL || `gpt-4o-mini`,
 	messages,
 	stream = process.stdout,
 }) {
