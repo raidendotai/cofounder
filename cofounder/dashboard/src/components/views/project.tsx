@@ -20,7 +20,7 @@ const Project: React.FC = () => {
 
 	const tabs = ["blueprint", "live", "editor", "export"];
 
-	const SERVER_LOCAL_URL = "http://localhost:667/api";
+	const SERVER_LOCAL_URL = "http://localhost:4200/api";
 	const WEBAPP_LOCAL_URL = "http://localhost:5173";
 
 	const dispatch = useDispatch();
