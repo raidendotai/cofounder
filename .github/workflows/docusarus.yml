@@ -1,11 +1,11 @@
-name: Deploy to GitHub Pages
+name: Deploy Docs to GitHub Pages
 
 on:
   push:
     branches:
       - main
-    # Review gh actions docs if you want to further define triggers, paths, etc
-    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+    paths:
+      - 'docs/**' # Only trigger on changes in docs directory
 
 jobs:
   build:
@@ -19,31 +19,30 @@ jobs:
         with:
           node-version: 18
           cache: npm
+          cache-dependency-path: docs/package-lock.json # Specify path to lock file
 
       - name: Install dependencies
         run: npm install --frozen-lockfile
+        working-directory: docs # Set working directory to docs folder
+
       - name: Build website
-        run: npm build
+        run: npm run build
+        working-directory: docs # Set working directory to docs folder
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: docs/build # Update build output path
 
   deploy:
     name: Deploy to GitHub Pages
     needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write # to deploy to Pages
-      id-token: write # to verify the deployment originates from an appropriate source
-
-    # Deploy to the github-pages environment
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
