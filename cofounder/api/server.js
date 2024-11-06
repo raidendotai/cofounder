@@ -118,7 +118,7 @@ if (new_project.project && new_project.description) {
 
 // -------------------------------------------------------------- SERVER SETUP ------------------------
 const app = express();
-const PORT = process.env.PORT || 667;
+const PORT = process.env.PORT || 4200;
 
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));

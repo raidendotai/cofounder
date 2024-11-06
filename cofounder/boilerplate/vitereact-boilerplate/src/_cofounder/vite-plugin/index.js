@@ -110,7 +110,7 @@ export default {
     */
 		code = code.replaceAll(
 			`{COFOUNDER_LOCAL_API_BASE_URL}`,
-			`http://localhost:667/api`,
+			`http://localhost:4200/api`,
 		);
 		if (path.includes(`src/App.tsx`)) {
 			return await editSectionsAndViews({ path, code });
