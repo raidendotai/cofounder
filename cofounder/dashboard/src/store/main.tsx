@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { merge } from "lodash-es";
 
 // Socket.io client setup
-const socket = io("http://localhost:667");
+const socket = io("http://localhost:4200");
 
 // Initial state for the store
 const initialState = {

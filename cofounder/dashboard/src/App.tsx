@@ -12,7 +12,7 @@ const App: React.FC = () => {
 	const [pingServerChecked, setPingServerChecked] = useState(false);
 	const location = useLocation();
 
-	const SERVER_LOCAL_URL = "http://localhost:667/api";
+	const SERVER_LOCAL_URL = "http://localhost:4200/api";
 	useEffect(() => {
 		const checkPingServer = async () => {
 			try {
