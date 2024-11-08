@@ -4,7 +4,7 @@
 		"@": "."
 	},
 	"scripts": {
-		"start:npx": "npm i && nodemon --loader esm-module-alias/loader --no-warnings server.js",
+		"start:npx": "npm i && node --loader esm-module-alias/loader --no-warnings server.js",
 		"start": "nodemon --loader esm-module-alias/loader --no-warnings server.js"
 	},
 	"nodemonConfig": {
