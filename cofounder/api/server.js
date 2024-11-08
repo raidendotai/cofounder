@@ -797,3 +797,110 @@ async function _iterateUiComponent({ request, data }) {
 	});
 }
 // ----------------------------------------------------------------------------------------------------
+
+// Core Function: create_new_project()
+// ------------------------------
+// Purpose: Initializes a new project based on command line arguments or API requests
+// Flow:
+// 1. Validates that project description exists and is not empty
+// 2. Logs initialization message with project name and setup instructions
+// 3. Constructs a query object containing:
+//    - Project metadata (name, description)
+//    - Design aesthetics preferences (if provided)
+// 4. Calls cofounder.system.run with 'seq:project:init:v1' sequence
+// Usage: Called when project init args are provided via CLI or through API endpoint
+
+// Core Function: load_project()
+// ------------------------------
+// Purpose: Loads project state and structure from local storage
+// Parameters: { project: string } - Project identifier
+// Flow:
+// 1. Fetches project data using utils.load.local
+// 2. Processes project structure maintaining key hierarchy
+// 3. Special handling for webapp-related data:
+//    - Organizes by type (react/layout)
+//    - Categories (root/store/views)
+//    - Versions management
+// Returns: Complete project state for client consumption
+// Used by: Socket.io connection handler and resume_project function
+
+// Core Function: resume_project()
+// ------------------------------
+// Purpose: Determines where to resume project generation from based on existing state
+// Flow:
+// 1. Loads current project state using load_project()
+// 2. Compares existing project keys against seq_projectv1_dag (project generation steps)
+// 3. Identifies the last completed phase
+// Returns: { 
+//    data: current project state,
+//    resume: index of last completed phase
+// }
+// Used by: Project resume API endpoint
+
+// Core Function: streams Object
+// ------------------------------
+// Purpose: Manages real-time data streaming to connected clients via Socket.io
+// Methods:
+// - start(): Initiates a new data stream for a project
+// - write(): Sends chunks of data to subscribed clients
+// - end(): Signals stream completion
+// - update(): Handles state updates, with special processing for webapp updates
+// Used by: Throughout the system for real-time client updates
+
+// Core Function: Socket.io Connection Handler
+// ------------------------------
+// Purpose: Manages real-time client connections and project subscriptions
+// Flow:
+// 1. Handles new client connections
+// 2. Manages project subscriptions:
+//    - Tracks subscribers in subscriptions object
+//    - Loads project state for new subscribers
+//    - Broadcasts state updates to relevant clients
+// 3. Handles client disconnections and cleanup
+
+// Core Function: _updateProjectPreferences()
+// ------------------------------
+// Purpose: Updates project preferences, particularly version selections
+// Parameters: { 
+//    request: { 
+//      project: string,
+//      query: { action, data }
+//    }
+// }
+// Updates state via op:PROJECT::STATE:UPDATE operation
+
+// Core Function: _regenerateUiComponent()
+// ------------------------------
+// Purpose: Handles UI component regeneration requests
+// Flow:
+// 1. Processes request to identify component type and ID
+// 2. Constructs task object with:
+//    - View type (unique/shared)
+//    - Required passes (functional/redesign)
+// 3. Triggers WEBAPP:VIEW::GENERATE operation
+// Used by: UI regeneration API endpoint
+
+// Core Function: _iterateUiComponent()
+// ------------------------------
+// Purpose: Processes UI component iteration requests
+// Flow:
+// 1. Extracts component ID and version from request
+// 2. Processes user notes and screenshots
+// 3. Handles designer mode settings
+// 4. Constructs and executes iteration task
+// Used by: UI iteration API endpoint
+
+// Utility Function: _slugify()
+// ------------------------------
+// Purpose: Converts text to URL-friendly slug format
+// Flow:
+// 1. Converts to lowercase
+// 2. Replaces spaces with hyphens
+// 3. Removes non-word characters
+// 4. Cleans up multiple/leading/trailing hyphens
+// Used by: Project name processing and URL generation
+
+
+
+
+//-------------------------------------------------------------------------------------------------------
