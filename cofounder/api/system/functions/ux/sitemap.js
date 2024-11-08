@@ -104,7 +104,7 @@ You're a genius do a great job`,
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, // `chatgpt-4o-latest`,//`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, // process.env.INFERENCE_MODEL,//`gpt-4o`,
 				messages,
 				preparser: `backticks`,
 				parser: `yaml`,

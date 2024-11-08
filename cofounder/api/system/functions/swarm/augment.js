@@ -320,7 +320,7 @@ async function swarmAugmentBackendExternalapis({ context, data }) {
 				},
 			},
 			data: {
-				model: `chatgpt-4o-latest`, //`gpt-4o`,
+				model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 				messages: messagesAnalysis,
 				preparser: `backticks`,
 				parser: false,
@@ -344,7 +344,7 @@ async function swarmAugmentBackendExternalapis({ context, data }) {
 			},
 		},
 		data: {
-			model: `chatgpt-4o-latest`, //`gpt-4o`,
+			model: process.env.INFERENCE_MODEL, //`gpt-4o`,
 			messages: messagesImplementMerge,
 			preparser: false,
 			parser: false,
