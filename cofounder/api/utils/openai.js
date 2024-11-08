@@ -1,6 +1,7 @@
 import fs from "fs";
 import OpenAI from "openai";
 import dotenv from "dotenv";
+import openrouter from "./openrouter.js"; // Import the new openrouter module
 dotenv.config();
 
 let openai;
@@ -17,6 +18,10 @@ async function inference({
 	messages,
 	stream = process.stdout,
 }) {
+	if (process.env.OPENROUTER_TOKEN) {
+		return openrouter.inference({ model, messages, stream });
+	}
+
 	const streaming = await openai.chat.completions.create({
 		model,
 		messages,
@@ -55,6 +60,7 @@ async function inference({
 		usage: { model, ...usage },
 	};
 }
+
 async function vectorize({
 	texts,
 	model = process.env.EMBEDDING_MODEL || `text-embedding-3-small`,
