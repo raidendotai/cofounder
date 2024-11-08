@@ -5,6 +5,9 @@
 
 * project - [cofounder.openinterface.ai](https://cofounder.openinterface.ai)
 * 👋 [@n_raidenai](https://x.com/n_raidenai)
+* Join community 👇
+
+[![Cofounder](https://img.shields.io/badge/Cofounder-gray?style=for-the-badge&logo=discord&link=https://discord.gg/2kVMzeASj9)](https://discord.gg/2kVMzeASj9)
 
 **cofounder**
 - full stack generative web apps ; backend + db + stateful web apps
